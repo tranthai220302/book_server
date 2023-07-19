@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user";
-
+import { Topic } from "./Topic";
 @Entity()
 export class Book{
     @PrimaryGeneratedColumn()
@@ -19,4 +19,7 @@ export class Book{
     price: number
     @ManyToOne(()=>User, user => user.books)
     user: User
+    
+    @ManyToOne(()=> Topic, topic => topic.books)
+    topic: Topic
 }

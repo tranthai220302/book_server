@@ -13,11 +13,11 @@ export class BookController {
     constructor(
         private bookService : BookService
     ){}
-    @Post('create')
-    async createBook(@Body() book : bookDTO, @Req() request){
+    @Post('create/:id')
+    async createBook(@Param('id', ParseIntPipe) idTopic : number, @Body() book : bookDTO, @Req() request){
         try {
             if(request.user){
-                const bookNew = await this.bookService.createBook(book, request.user.sub);
+                const bookNew = await this.bookService.createBook(book, request.user.sub, idTopic);
                 return bookNew;
             }
             throw new HttpException("Login is valid", HttpStatus.BAD_REQUEST)

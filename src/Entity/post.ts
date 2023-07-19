@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 import { User } from './user';
+import { Topic } from './Topic';
 
 @Entity()
 export class Postt {
@@ -17,4 +18,6 @@ export class Postt {
 
     @OneToOne(() => User)
     user: User
+
+
 }

@@ -1,6 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { REFUSED } from 'dns';
+import { Topic } from 'src/Entity/Topic';
 import { Book } from 'src/Entity/book';
 import { User } from 'src/Entity/user';
 import { bookDTO } from 'src/book/dtos/bookDTO';
@@ -12,14 +13,18 @@ export class BookService {
         @InjectRepository(Book)
         private bookRepository: Repository<Book>,
         @InjectRepository(User)
-        private userRepository: Repository<User>
+        private userRepository: Repository<User>,
+        @InjectRepository(Topic)
+        private topicRepository: Repository<Topic>
     ){}
 
-    async createBook(book : bookDTO, id: number){
+    async createBook(book : bookDTO, id: number, idTopic: number){
         try {
             const newBook = this.bookRepository.create(book);
             const user = await this.userRepository.findOne({where : {id}})
+            const topic = await this.topicRepository.findOne({where : {id : idTopic}})
             newBook.user = user;
+            newBook.topic = topic
             const saveBook = await this.bookRepository.save(newBook);
             return saveBook;
         } catch (error) {

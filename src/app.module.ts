@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { PostModule } from './post/post.module';
 import { Book } from './Entity/book';
 import { BookModule } from './book/book.module';
+import { Topic } from './Entity/Topic';
+import { TopicModule } from './topic/topic.module';
 
 @Module({
   imports: [
@@ -17,13 +19,14 @@ import { BookModule } from './book/book.module';
       username: 'root',
       password: '',
       database: 'test1',
-      entities: [User, Postt, Book],
+      entities: [User, Postt, Book, Topic],
       synchronize: true,
     }),
     UserModule,
     AuthModule,
     PostModule,
     BookModule,
+    TopicModule,
   ],
   controllers: [],
   providers: [],
